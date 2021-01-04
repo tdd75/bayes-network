@@ -1,0 +1,1 @@
+Draw network, apply Bayes' law to caculate the probability of this network
