@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.brunomnsilva.smartgraph.graph.Graph;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -19,55 +20,55 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class CreateTableTruth {    
+public class CreateTableTruth {
 
     public void CreateTable(Graph<String, String> g, String v) {
-        TableView<List<String>> table = new TableView<>();
+        TableView<Integer> table = new TableView<>();
         Scene scene = new Scene(new Group());
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setTitle("Table truth of " + v);
         table.setEditable(true);
-
         List<String> listVertex = findParentVertex(g, v);
-        for (String vertex : listVertex) {
-            TableColumn col = new TableColumn<>(vertex);            
-            table.getColumns().add(col);
-        }
 
+        //
         int countRows = (int) Math.pow(2, listVertex.size());
         int countParent = listVertex.size();
+        // init rows
+        for (int i = 0; i < countRows; i++) {
+            table.getItems().add(i);
+        }
+        // init listItem
         List<List<String>> listItem = new ArrayList<>();
+        for (int j = 0; j < countParent; j++) {
+            List<String> tmp = new ArrayList<>();
+            listItem.add(tmp);
+        }
+
         for (int i = 0; i < countRows; i++) {
             String s = Integer.toBinaryString(i);
             while (s.length() < countParent)
                 s = "0" + s;
-            List<String> item = new ArrayList<>();
             for (int j = 0; j < countParent; j++) {
                 if (s.charAt(j) == '0')
-                    item.add("F");
+                    listItem.get(j).add("F");
                 else
-                    item.add("T");
+                    listItem.get(j).add("T");
             }
-            listItem.add(item);
-             System.out.println(item);
-            // table.getItems().add(i, item);
-            // table.setItems(FXCollections.observableArrayList(item));
-            // System.out.println(listItem);
-            // Object[] item = listItem.toArray();
-            // table.setItems(item);
         }
-        table.setItems(FXCollections.observableArrayList(listItem));
+        System.out.println(listItem);
+
+        for (int k = 0 ; k<listVertex.size();++k) {
+            TableColumn<Integer, String> col = new TableColumn<>(listVertex.get(k));
+            int finalK = k;
+            col.setCellValueFactory(cellData -> {
+                Integer rowIndex = cellData.getValue();
+                return new ReadOnlyStringWrapper(listItem.get(finalK).get(rowIndex));
+            });
+            table.getColumns().add(col);
+        }
 
         TableColumn vertexTarget = new TableColumn<>(v);
         TableColumn trueColumn = new TableColumn<>("T");
-
-//         trueColumn.setCellValueFactory(celldata -> celldata.getClass());
-        // trueColumn.setOnEditCommit(new EventHandler<Event>(){
-            // @Override
-            // public void handle(CellEditEvent t) {
-            //     ((book))
-            // }
-        // });
         TableColumn falseColumn = new TableColumn<>("F");
         vertexTarget.getColumns().addAll(trueColumn, falseColumn);
         table.getColumns().addAll(vertexTarget);
