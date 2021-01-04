@@ -97,15 +97,15 @@ public class CreateTableTruth {
 //            "1","2"
 //        );
 //        table.setItems(data);
-        // table.setItems(FXCollections.observableArrayList(s));
-        // table.getItems().add(FXCollections.observableArrayList(s).getClass());
-//        final VBox vbox = new VBox();
-//        vbox.setSpacing(5);
-//        vbox.setPadding(new Insets(10));
-//        vbox.getChildren().addAll(table);
-//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-//        stage.setScene(scene);
-//        stage.show();
+//         table.setItems(FXCollections.observableArrayList(s));
+//         table.getItems().add(FXCollections.observableArrayList(s).getClass());
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10));
+        vbox.getChildren().addAll(table);
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public List<String> findParentVertex(Graph<String, String> g, String v) {
