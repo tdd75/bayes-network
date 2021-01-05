@@ -18,6 +18,7 @@ public class App extends Application{
         stage.setTitle("Network build");
         stage.setResizable(true);
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
     }
 }

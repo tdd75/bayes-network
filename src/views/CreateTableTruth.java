@@ -52,12 +52,11 @@ public class CreateTableTruth {
     public static Map<String, List<Data>> listData = new HashMap<>();
 
     public void CreateTable(Graph<String, String> g, String v) {
-//        if(listData != null)
-//        System.out.println(listData.get(0).getT());
         TableView<Integer> table = new TableView<>();
         Scene scene = new Scene(new Group());
         Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle("Table truth of " + v);
+        stage.setTitle(v);
+        stage.setResizable(false);
         table.setEditable(true);
         List<String> listVertex = findParentVertex(g, v);
 
@@ -88,7 +87,6 @@ public class CreateTableTruth {
             }
 
         }
-//        System.out.println("size: " + listData.get(0).getF());
         if(listData.get(v) == null)
         {
             List<Data> tmp = new ArrayList<>();
@@ -112,7 +110,6 @@ public class CreateTableTruth {
                     System.out.println(event.getNewValue());
                 }
             });
-            col.setCellFactory(TextFieldTableCell.forTableColumn());
             table.getColumns().add(col);
         }
 
@@ -156,42 +153,6 @@ public class CreateTableTruth {
         vertexTarget.getColumns().addAll(trueColumn, falseColumn);
         table.getColumns().add(vertexTarget);
 
-//        TableColumn trueColumn = new TableColumn<>("T");
-//        TableColumn falseColumn = new TableColumn<>("F");
-//        trueColumn.setMinWidth(50);
-//        falseColumn.setMinWidth(50);
-//
-//        trueColumn.setCellValueFactory(
-//                new PropertyValueFactory<Data, Double>("T"));
-//        trueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-////        table.setItems(FXCollections.observableArrayList(listData));
-//        trueColumn.setCellValueFactory(new PropertyValueFactory<Data, String>("t"));
-//
-//        trueColumn.setOnEditCommit(
-//                new EventHandler<CellEditEvent<Data, Double>>() {
-//                    @Override
-//                    public void handle(CellEditEvent<Data, Double> t) {
-//                        System.out.println("Column T: Row = " + t.getTablePosition().getRow() + "; Value = " + t.getNewValue());
-//                    }
-//                }
-//        );
-//        falseColumn.setCellValueFactory(
-//                new PropertyValueFactory<Data, Double>("F"));
-//        falseColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        falseColumn.setOnEditCommit(
-//                new EventHandler<CellEditEvent<Data, Double>>() {
-//                    @Override
-//                    public void handle(CellEditEvent<Data, Double> t) {
-//
-//                        System.out.println("Column T: Row = " + t.getTablePosition().getRow() + "; Value = " + t.getNewValue());
-//                    }
-//                }
-//        );
-//
-//
-//        vertexTarget.getColumns().addAll(trueColumn, falseColumn);
-//        table.getColumns().addAll(vertexTarget);
-
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10));
@@ -203,29 +164,9 @@ public class CreateTableTruth {
 
     public void createAllTable(Graph<String, String> g) {
         System.out.println("Create all table");
-        TableView table = new TableView<>();
-        Scene scene = new Scene(new Group());
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle("Table truth ");
-        table.setEditable(true);
-        // TableColumn col1 = new TableColumn<String>("Rain");
-        // TableColumn col2 = new TableColumn<String>("grass");
-        // table.getColumns().addAll(col1, col2);
-//        String s[] = {"1", "2"};
-//        System.out.println(FXCollections.observableArrayList(s).getClass());
-//        ObservableList<String> data = FXCollections.observableArrayList(
-//            "1","2"
-//        );
-//        table.setItems(data);
-//         table.setItems(FXCollections.observableArrayList(s));
-//         table.getItems().add(FXCollections.observableArrayList(s).getClass());
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10));
-        vbox.getChildren().addAll(table);
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-        stage.setScene(scene);
-        stage.show();
+        g.vertices().forEach((e) -> {
+            CreateTable(g, e.element());
+        });
     }
 
     public List<String> findParentVertex(Graph<String, String> g, String v) {

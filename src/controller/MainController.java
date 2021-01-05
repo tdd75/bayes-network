@@ -164,7 +164,7 @@ public class MainController implements Initializable {
         drawPane.getChildren().addAll(gContainer);
 
         graphView.init();
-
+        graphView.setAutomaticLayout(true);
         graphView.setVertexDoubleClickAction(graphVertex -> {
             System.out.println("Vertex contains element: " + graphVertex.getUnderlyingVertex().element());
             if (!graphVertex.removeStyleClass("myVertex")) {
@@ -192,21 +192,13 @@ public class MainController implements Initializable {
 
         Digraph<String, String> g = new DigraphEdgeList<>();
 
-        g.insertVertex("A");
-        g.insertVertex("B");
-        g.insertVertex("C");
-        g.insertVertex("D");
-        g.insertVertex("E");
-        g.insertVertex("F");
+        g.insertVertex("RAIN");
+        g.insertVertex("SPRINKLER");
+        g.insertVertex("GRASS WET");
 
-        g.insertEdge("A", "B", "A-B");
-        g.insertEdge("B", "A", "B-A");
-        g.insertEdge("A", "C", "A-C");
-        g.insertEdge("A", "D", "A-D");
-        g.insertEdge("B", "C", "B-C");
-        g.insertEdge("C", "D", "C-D");
-        g.insertEdge("B", "E", "B-E");
-        g.insertEdge("F", "D", "D-F");
+        g.insertEdge("RAIN", "SPRINKLER", "RAIN-SPRINKLER");
+        g.insertEdge("SPRINKLER", "GRASS WET", "SPRINKLER-GRASS WET");
+        g.insertEdge("RAIN", "GRASS WET", "RAIN-GRASS WET");
 
         return g;
     }
