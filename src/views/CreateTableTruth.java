@@ -133,7 +133,6 @@ public class CreateTableTruth {
                 listData.get(v).get(event.getTablePosition().getRow()).setT(event.getNewValue());
             }
         });
-        trueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         // false column
         TableColumn<Integer, String> falseColumn;
@@ -151,7 +150,6 @@ public class CreateTableTruth {
                 listData.get(v).get(event.getTablePosition().getRow()).setF(event.getNewValue());
             }
         });
-        falseColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         // add to table
         vertexTarget.getColumns().addAll(trueColumn, falseColumn);
         table.getColumns().add(vertexTarget);
