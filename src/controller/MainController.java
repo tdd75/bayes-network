@@ -2,7 +2,6 @@ package controller;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -12,18 +11,15 @@ import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graph.DigraphEdgeList;
 import com.brunomnsilva.smartgraph.graph.Edge;
 import com.brunomnsilva.smartgraph.graph.Graph;
-import com.brunomnsilva.smartgraph.graph.Vertex;
 import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
 import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
@@ -31,12 +27,10 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import views.CreateTableTruth;
-import model.GraphModel;
 
 public class MainController implements Initializable {
     @FXML
@@ -66,7 +60,7 @@ public class MainController implements Initializable {
     private void addNewEdge() {
         // Create the custom dialog.
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Login Dialog");
+        dialog.setTitle("Add New Edge");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -99,8 +93,6 @@ public class MainController implements Initializable {
         Optional<Pair<String, String>> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-            System.out.println(
-                    "Outbound vertex: " + result.get().getKey() + ", Inbound vertex: " + result.get().getValue());
             try {
                 g.insertEdge(result.get().getKey(), result.get().getValue(),
                         result.get().getKey() + "-" + result.get().getValue());
@@ -113,7 +105,6 @@ public class MainController implements Initializable {
 
     @FXML
     private void start() {
-        System.out.println("start compute");
         tableTruth.createAllTable(g);
     }
 
@@ -126,18 +117,16 @@ public class MainController implements Initializable {
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", listNode);
         dialog.setHeaderText(null);
         dialog.setContentText("Choose vertex: ");
-
+        dialog.setTitle("Probability Table");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(v -> {
             if (v != "")
-                tableTruth.CreateTable(g, v);
+                tableTruth.createTable(g, v);
         });
     }
 
-    private GraphModel graphModel = new GraphModel();
     private String nameNode;
     Graph<String, String> g = build_sample_digraph();
-    // Graph<String, String> g = new DigraphEdgeList<>();
     SmartPlacementStrategy strategy = new SmartCircularSortedPlacementStrategy();
     SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, strategy);
     CreateTableTruth tableTruth = new CreateTableTruth();
@@ -151,12 +140,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        g.vertices().forEach((e) -> {
-            System.out.println(e.element());
-        });
-        // System.out.println(existsEdge);
-        System.out.println((g.vertices()));
-        System.out.println(g.vertices().getClass());
         SmartGraphDemoContainer gContainer = new SmartGraphDemoContainer(graphView);
         gContainer.setMinSize(1080, 728);
         gContainer.setPrefSize(1080, 728);
@@ -166,23 +149,19 @@ public class MainController implements Initializable {
         graphView.init();
         graphView.setAutomaticLayout(true);
         graphView.setVertexDoubleClickAction(graphVertex -> {
-            System.out.println("Vertex contains element: " + graphVertex.getUnderlyingVertex().element());
             if (!graphVertex.removeStyleClass("myVertex")) {
                 graphVertex.addStyleClass("myVertex");
             }
-            System.out.println(graphVertex.getUnderlyingVertex());
             g.removeVertex(graphVertex.getUnderlyingVertex());
             graphView.update();
         });
 
         graphView.setEdgeDoubleClickAction(graphEdge -> {
-            System.out.println("Edge contains element: " + graphEdge.getUnderlyingEdge().element());
             // dynamically change the style when clicked
             graphEdge.setStyle("-fx-stroke: red; -fx-stroke-width: 2;");
 
             // uncomment to see edges being removed after click
             Edge<String, String> underlyingEdge = graphEdge.getUnderlyingEdge();
-            System.out.println(underlyingEdge);
             g.removeEdge(underlyingEdge);
             graphView.update();
         });

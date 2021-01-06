@@ -8,42 +8,37 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddNewController">
-   <children>
-      <HBox prefHeight="40.0" prefWidth="600.0">
-         <children>
-            <Label text="Name:">
-               <HBox.margin>
-                  <Insets left="70.0" right="50.0" top="10.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="nameNodeTf">
-               <HBox.margin>
-                  <Insets top="7.0" />
-               </HBox.margin>
-            </TextField>
-         </children>
-         <VBox.margin>
-            <Insets top="30.0" />
-         </VBox.margin>
-      </HBox>
-      <RadioButton mnemonicParsing="false" text="Select node is root parent">
-         <VBox.margin>
-            <Insets left="70.0" top="10.0" />
-         </VBox.margin>
-      </RadioButton>
-      <HBox prefHeight="30.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#confirm" text="OK">
-               <HBox.margin>
-                  <Insets left="90.0" right="100.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#cancle" text="Cancle" />
-         </children>
-         <VBox.margin>
-            <Insets top="40.0" />
-         </VBox.margin>
-      </HBox>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0"
+      prefWidth="360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="40.0" prefWidth="600.0">
+      <VBox.margin>
+         <Insets top="30.0"/>
+      </VBox.margin>
+      <Label text="Name:">
+         <HBox.margin>
+            <Insets left="70.0" right="50.0" top="10.0"/>
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="nameNodeTf">
+         <HBox.margin>
+            <Insets top="7.0"/>
+         </HBox.margin>
+      </TextField>
+   </HBox>
+   <RadioButton mnemonicParsing="false" text="Select node is root parent">
+      <VBox.margin>
+         <Insets left="70.0" top="10.0"/>
+      </VBox.margin>
+   </RadioButton>
+   <HBox prefHeight="30.0">
+      <VBox.margin>
+         <Insets top="40.0"/>
+      </VBox.margin>
+      <Button mnemonicParsing="false" text="OK">
+         <HBox.margin>
+            <Insets left="90.0" right="100.0"/>
+         </HBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" text="Cancle"/>
+   </HBox>
 </VBox>
