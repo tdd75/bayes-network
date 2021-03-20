@@ -1,1 +1,1 @@
-Draw network, apply Bayes' law to caculate the probability of this network
+Building a Bayes network model includes the functions of creating, saving and loading Bayes networks. Expansion: calculate the probability of nodes based on the probability of other nodes (according to Bayes formula) to serve other problems.
