@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application{
-    
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -14,7 +14,7 @@ public class App extends Application{
     public void start(Stage stage) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getResource("views/NetworkBuild_GUI.fxml"));
-        stage.setTitle("Network build");
+        stage.setTitle("Network 1build");
         stage.setResizable(true);
         stage.setScene(new Scene(root));
         stage.setResizable(false);
